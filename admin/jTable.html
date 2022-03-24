@@ -1,0 +1,71 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<style>
+    th{ 
+        color:#fff;
+            }
+</style>
+
+
+<table class="table table-striped">
+    <tr  class="bg-info">
+		<th  data-colname="id" data-order="desc">ID &#9650</th>
+		<th  data-colname="accountnumber" data-order="desc">Account number &#9650</th>
+		<th  class="bg-info" data-colname="address" data-order="desc">Address &#9650</th>
+		<th  data-colname="balance" data-order="desc">Balance &#9650</th>
+		<th  class="bg-info" data-colname="email" data-order="desc">Email &#9650</th>
+		<th  class="bg-info" data-colname="name" data-order="desc">Name &#9650</th>
+		<th  data-colname="linkAccount" data-order="desc">Link account &#9650</th>
+		<th  data-colname="phonenumber" data-order="desc">Phone number &#9650</th>
+	</tr>
+
+    <tbody id="myTable">
+        
+    </tbody>
+</table>
+
+<script>
+	var myArray = []
+	
+
+	$.ajax({
+		method:'GET',
+		url:'http://172.16.3.15:8080/findall',
+		success:function(response){
+			myArray = response
+			buildTable(myArray)
+		}
+	})
+
+
+
+	function buildTable(data){
+                var table = document.getElementById('myTable')
+                table.innerHTML = ''
+                for (var i = 0; i < data.length; i++){
+                    var colid = `id-${i}`
+                    var colnum = `accountnumber-${i}`
+                    var coladd = `adddress-${i}`
+                    var colbal = `balance-${i}`
+                    var colemail = `email-${i}`
+                    var colname = `name-${i}`
+                    var collink = `linkAccount-${i}`
+                    var colphone = `phonenumber-${i}`
+                    var row = `<tr>
+                                    <td>${data[i].id}</td>
+                                    <td>${data[i].accountnumber}</td>
+                                    <td>${data[i].address}</td>
+                                    <td>${data[i].balance}</td>
+                                    <td>${data[i].email}</td>
+                                    <td>${data[i].name}</td>
+                                    <td>${data[i].linkAccount}</td>
+                                    <td>${data[i].phonenumber}</td>
+                            </tr>`
+                    table.innerHTML += row
+                }
+            }
+        
+
+</script>
